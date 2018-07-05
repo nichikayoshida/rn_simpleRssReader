@@ -1,14 +1,16 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text, View, FlatList, ActivityIndicator, Image, Dimensions} from 'react-native';
+import {StyleSheet, Text, View, FlatList, Dimensions} from 'react-native';
 import Separator from './components/Separator';
 import Article from './components/Article';
 import LoadingIndicator from './components/LoadingIndicator';
 import ArticleProvider from './dataProvider/ArticleProvider';
+import {CenteredTextModal} from './components/Modal'
 
 export default class App extends Component{
 
   state = {
-    threads: []
+    threads: [],
+    isModalVisible: true
   }
 
   componentDidMount() {
@@ -49,6 +51,10 @@ export default class App extends Component{
       :
       <View style={styles.container}>
       {this._articleFlatList()}
+      <CenteredTextModal
+      isVisible = {this.state.isModalVisible}
+      onBackdropPress = {() => this.setState({isModalVisible: false})}
+      text = 'Welcome!! Enjoy React Native!!'/>
       </View>
     );
   }
