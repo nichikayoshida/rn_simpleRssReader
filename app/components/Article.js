@@ -12,7 +12,7 @@ export default class Article extends Component{
       <View style = {{padding: 5, backgroundColor: bgColor, flex : 1, flexDirection : 'row', width: '100%'}}>
         <Image
           style = {{width: 50, height: 50, marginRight: 5}}
-          source = {{uri: item.data.thumbnail}}/>
+          source = {item.data.thumbnail.includes('https') ? {uri: item.data.thumbnail} : null}/>
         <View>
           <Text style = {{width: width - 50}}>
             {item.data.title}
