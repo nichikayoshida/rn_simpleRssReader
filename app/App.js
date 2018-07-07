@@ -59,6 +59,10 @@ export default class App extends Component {
     />
   )
 
+  _onBackdropPress() {
+    this.setState({ isModalVisible: false })
+  }
+
   render() {
     return this.state.threads.length == 0 ? (
       <View style={styles.container}>

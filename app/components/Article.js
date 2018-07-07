@@ -27,6 +27,12 @@ export default class Article extends Component {
   }
 }
 
+Article.propTypes = {
+  bgColor: PropTypes.string,
+  width: PropTypes.number,
+  item: PropTypes.object
+}
+
 const styles = StyleSheet.create({
   base: {
     padding: 5,

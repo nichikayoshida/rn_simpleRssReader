@@ -1,6 +1,7 @@
 import Modal from 'react-native-modal'
 import React, { Component } from 'react'
-import { StyleSheet, Text, View, StyleSheet } from 'react-native'
+import { StyleSheet, Text, View } from 'react-native'
+import PropTypes from 'prop-types'
 
 export class CenteredTextModal extends Component {
   render() {
@@ -17,6 +18,12 @@ export class CenteredTextModal extends Component {
       </Modal>
     )
   }
+}
+
+CenteredTextModal.propTypes = {
+  isVisible: PropTypes.bool,
+  onBackdropPress: PropTypes.func,
+  text: PropTypes.string
 }
 
 const styles = StyleSheet.create({
