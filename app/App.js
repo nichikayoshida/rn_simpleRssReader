@@ -59,10 +59,14 @@ export default class App extends Component{
     return (
       this.state.threads.length == 0 ?
       <View style={styles.container}>
+      <View style ={{height: getStatusBarHeight(),width: '100%' , backgroundColor: 'black'}}/>
+      <View style={styles.container}>
       <LoadingIndicator/>
+      </View>
       </View>
       :
       <View style={styles.container}>
+      <View style ={{height: getStatusBarHeight(),width: '100%', backgroundColor: 'black'}}/>
       {this._articleFlatList()}
       <CenteredTextModal
       isVisible = {this.state.isModalVisible}
@@ -79,7 +83,6 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'black',
-    paddingTop: getStatusBarHeight()
+    backgroundColor: 'white',
   },
 });
