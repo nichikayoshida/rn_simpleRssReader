@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text, View, FlatList, Dimensions} from 'react-native';
+import {StyleSheet, Text, View, FlatList, Dimensions, RefreshControl} from 'react-native';
 import Separator from './components/Separator';
 import Article from './components/Article';
 import LoadingIndicator from './components/LoadingIndicator';
@@ -10,7 +10,8 @@ export default class App extends Component{
 
   state = {
     threads: [],
-    isModalVisible: true
+    isModalVisible: true,
+    refreshing: false
   }
 
   componentDidMount() {
@@ -20,16 +21,27 @@ export default class App extends Component{
   _getThreads = async () => {
     try {
       let threads = await ArticleProvider.getThreads()
-      this.setState({threads: threads})
+      this.setState({threads: threads, refreshing: false})
     } catch (e) {
       console.error(e);
     }
+  }
+
+  _refreshList(){
+    this.setState({refreshing: true})
+    this._getThreads()
   }
 
   _articleFlatList = () => (
     <FlatList
     data={this.state.threads}
     ItemSeparatorComponent={Separator}
+    refreshControl = {
+      <RefreshControl
+      refreshing = {this.state.refreshing}
+      onRefresh = {this._refreshList.bind(this)}
+      />
+    }
     renderItem={
       ({item, index}) => {
 
