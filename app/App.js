@@ -1,10 +1,11 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text, View, FlatList, Dimensions, RefreshControl} from 'react-native';
+import {StyleSheet, Text, View, FlatList, Dimensions, RefreshControl, StatusBar} from 'react-native';
 import Separator from './components/Separator';
 import Article from './components/Article';
 import LoadingIndicator from './components/LoadingIndicator';
 import ArticleProvider from './dataProvider/ArticleProvider';
 import {CenteredTextModal} from './components/Modal'
+import { getStatusBarHeight } from 'react-native-status-bar-height';
 
 export default class App extends Component{
 
@@ -45,7 +46,7 @@ export default class App extends Component{
     renderItem={
       ({item, index}) => {
 
-        const bgColor = index%2 == 0? 'white' : 'rgba(0,0,0,0.1)'
+        const bgColor = index%2 == 0? 'white' : 'lightgray'
         const {width} = Dimensions.get('window')
 
         return (
@@ -75,8 +76,10 @@ export default class App extends Component{
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    backgroundColor: 'black',
+    paddingTop: getStatusBarHeight()
   },
 });
