@@ -1,10 +1,28 @@
-import React, { Component } from 'react'
-import { Text, View, Image, StyleSheet } from 'react-native'
-import PropTypes from 'prop-types'
+import React, { Component } from 'react';
+import {
+  Text,
+  View,
+  Image,
+  StyleSheet,
+  AsyncStorage,
+  Button
+} from 'react-native';
+import PropTypes from 'prop-types';
 
 export default class Article extends Component {
+  _save({ data }) {
+    AsyncStorage.setItem(data['title'], JSON.stringify(data), err => {
+      if (err) {
+        console.error(err);
+        return false;
+      } else {
+        return true;
+      }
+    });
+  }
+
   render = () => {
-    const { bgColor, width, item } = this.props
+    const { bgColor, width, item } = this.props;
 
     return (
       <View style={[styles.base, { backgroundColor: bgColor }]}>
@@ -21,17 +39,18 @@ export default class Article extends Component {
           <Text style={{ color: '#ababab', fontSize: 10 }}>
             {item.data.domain}
           </Text>
+          <Button onPress={() => this._save(item)} title={'ストック'} />
         </View>
       </View>
-    )
-  }
+    );
+  };
 }
 
 Article.propTypes = {
   bgColor: PropTypes.string,
   width: PropTypes.number,
   item: PropTypes.object
-}
+};
 
 const styles = StyleSheet.create({
   base: {
@@ -45,4 +64,4 @@ const styles = StyleSheet.create({
     height: 50,
     marginRight: 5
   }
-})
+});
