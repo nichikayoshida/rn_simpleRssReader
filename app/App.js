@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import {
   StyleSheet,
   Text,
@@ -7,37 +7,37 @@ import {
   Dimensions,
   RefreshControl,
   StatusBar
-} from 'react-native';
-import Separator from './components/Separator';
-import Article from './components/Article';
-import LoadingIndicator from './components/LoadingIndicator';
-import ArticleProvider from './dataProvider/ArticleProvider';
-import { CenteredTextModal } from './components/Modal';
-import { getStatusBarHeight } from 'react-native-status-bar-height';
+} from 'react-native'
+import Separator from './components/Separator'
+import Article from './components/Article'
+import LoadingIndicator from './components/LoadingIndicator'
+import ArticleProvider from './dataProvider/ArticleProvider'
+import { CenteredTextModal } from './components/Modal'
+import { getStatusBarHeight } from 'react-native-status-bar-height'
 
 export default class App extends Component {
   state = {
     threads: [],
     isModalVisible: true,
     refreshing: false
-  };
+  }
 
   componentDidMount() {
-    this._getThreads();
+    this._getThreads()
   }
 
   _getThreads = async () => {
     try {
-      let threads = await ArticleProvider.getThreads();
-      this.setState({ threads: threads, refreshing: false });
+      let threads = await ArticleProvider.getThreads()
+      this.setState({ threads: threads, refreshing: false })
     } catch (e) {
-      console.error(e);
+      console.error(e)
     }
-  };
+  }
 
   _refreshList() {
-    this.setState({ refreshing: true });
-    this._getThreads();
+    this.setState({ refreshing: true })
+    this._getThreads()
   }
 
   _articleFlatList = () => (
@@ -51,16 +51,16 @@ export default class App extends Component {
         />
       }
       renderItem={({ item, index }) => {
-        const bgColor = index % 2 == 0 ? 'white' : 'lightgray';
-        const { width } = Dimensions.get('window');
+        const bgColor = index % 2 == 0 ? 'white' : 'lightgray'
+        const { width } = Dimensions.get('window')
 
-        return <Article bgColor={bgColor} width={width} item={item} />;
+        return <Article bgColor={bgColor} width={width} item={item} />
       }}
     />
-  );
+  )
 
   _onBackdropPress() {
-    this.setState({ isModalVisible: false });
+    this.setState({ isModalVisible: false })
   }
 
   render() {
@@ -81,7 +81,7 @@ export default class App extends Component {
           text="Welcome!! Enjoy React Native!!"
         />
       </View>
-    );
+    )
   }
 }
 
@@ -98,4 +98,4 @@ const styles = StyleSheet.create({
     width: '100%',
     backgroundColor: 'black'
   }
-});
+})
