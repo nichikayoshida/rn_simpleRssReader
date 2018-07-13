@@ -1,7 +1,14 @@
 import React, { Component } from 'react'
-import { AsyncStorage, FlatList, Separator } from 'react-native'
-import Separator from './components/Separator'
-import Article from './components/Article'
+import {
+  AsyncStorage,
+  FlatList,
+  StyleSheet,
+  View,
+  Dimensions,
+  Text
+} from 'react-native'
+import Separator from './Separator'
+import Article from './Article'
 import { getStatusBarHeight } from 'react-native-status-bar-height'
 
 export default class Archive extends Component {
@@ -41,20 +48,22 @@ export default class Archive extends Component {
     <FlatList
       data={this.state.threads}
       ItemSeparatorComponent={Separator}
+      keyExtractor={(item, index) => index.toString()}
       renderItem={({ item, index }) => {
         const bgColor = index % 2 == 0 ? 'white' : 'lightgray'
         const { width } = Dimensions.get('window')
 
-        return <Article bgColor={bgColor} width={width} item={item} />
+        return <Text>{item.title}</Text>
       }}
     />
   )
 
   render() {
-    return (
+    return this.state.threads.length != 0 ? (
+      <View style={styles.container}>{this._articleFlatList()}</View>
+    ) : (
       <View style={styles.container}>
-        <View style={styles.statusBar} />
-        {this._articleFlatList()}
+        <Text>Empty</Text>
       </View>
     )
   }

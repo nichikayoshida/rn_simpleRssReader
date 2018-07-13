@@ -6,7 +6,8 @@ import {
   FlatList,
   Dimensions,
   RefreshControl,
-  StatusBar
+  StatusBar,
+  TouchableOpacity
 } from 'react-native'
 import Separator from './Separator'
 import Article from './Article'
@@ -16,6 +17,22 @@ import { CenteredTextModal } from './Modal'
 import { getStatusBarHeight } from 'react-native-status-bar-height'
 
 export default class NewFeed extends Component {
+  static navigationOptions = ({ navigation }) => ({
+    title: '新着記事',
+    headerTintColor: 'white',
+    headerBackTintStyle: { color: 'white' },
+    headerStyle: { backgroundColor: '#00aced' },
+    headerRight: (
+      <TouchableOpacity
+        style={{ paddingRight: 8 }}
+        onPress={() => {
+          navigation.navigate('Archive')
+        }}>
+        <Text>ストック一覧</Text>
+      </TouchableOpacity>
+    )
+  })
+
   state = {
     threads: [],
     isModalVisible: true,
@@ -66,14 +83,12 @@ export default class NewFeed extends Component {
   render() {
     return this.state.threads.length == 0 ? (
       <View style={styles.container}>
-        <View style={styles.statusBar} />
         <View style={styles.container}>
           <LoadingIndicator />
         </View>
       </View>
     ) : (
       <View style={styles.container}>
-        <View style={styles.statusBar} />
         {this._articleFlatList()}
         <CenteredTextModal
           isVisible={this.state.isModalVisible}
